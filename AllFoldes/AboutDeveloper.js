@@ -3,7 +3,6 @@ import React from 'react'
 import BackBtn from '../BackBtn'
 import { RFValue } from 'react-native-responsive-fontsize'
 import LottieView from 'lottie-react-native';
-import { A } from '@expo/html-elements';
 
 const {width} = Dimensions.get('window')
 const {height} = Dimensions.get('screen')
@@ -16,27 +15,18 @@ const AboutDeveloper = () => {
     <StatusBar backgroundColor="#9fa2da" barStyle="dark-content"/>
       <View style={styles.headertextConatiner}>
         <BackBtn/>
-        <Text style={styles.headerText}>Welcome Buddy !</Text>
+        <Text style={styles.headerText}>Hi Buddy !</Text>
       </View>
       <View >
         <View style={styles.container}>
           <LottieView style={styles.lottieViewStyles} source={require('../assets/Animation/mypic.json')} autoPlay loop/>
-          <Text style={styles.nameText}>Sai kiran varma pingili</Text>
+          <Text style={styles.nameText}>Sai kiran varma Pingili</Text>
           <Text style={styles.basicProfileFont}>Lovely Professional University</Text>
         </View>
       </View>
       <Text style={styles.info}>For more information or help please contact me</Text>
       <Text style={styles.info2}>teamcoderid@gmail.com</Text>
-      {/* <View style={styles.contactContainer}>
-        <Text style={styles.contactTextStyle}>Contact us....</Text>
-        <View style={{flexDirection:'row', justifyContent:'space-around', alignItems:'center'}}>
-            <LottieView style={styles.lottieView2Styles} source={require('../assets/Animation/telegram.json')} autoPlay loop/>
-          <A href='https://www.instagram.com/sai_ki_munna/' rel="external" target="_blank">
-            <LottieView style={styles.lottieView3Styles} source={require('../assets/Animation/insta.json')} autoPlay loop/>
-          </A>
-          <LottieView style={styles.lottieView2Styles} source={require('../assets/Animation/gmail.json')} autoPlay loop/>
-        </View>
-      </View> */}
+      <Text style={styles.info2}>insta : sai_ki_munna</Text>
     </View>
   )
 }
@@ -57,8 +47,8 @@ const styles = StyleSheet.create({
     // backgroundColor:'#faf'
   },
   lottieViewStyles: {
-    width: width/3,
-    height: width/3
+    width: width/2,
+    height: width/2
   },
   lottieView3Styles: {
     width: width/6,
@@ -69,14 +59,14 @@ const styles = StyleSheet.create({
     height: width/5
   },
   nameText: {
-    fontSize: RFValue(15),
-    fontWeight: '600',
-    color: '#fff',
-    fontStyle: 'italic',
+    fontSize: RFValue(17),
+    fontWeight: '800',
+    color: '#2a273f',
+    // fontStyle: 'italic',
   },
   basicProfileFont: {
-    fontSize: RFValue(12),
-    fontWeight: '500',
+    fontSize: RFValue(14),
+    fontWeight: '700',
     color: '#665da5',
   },
   contactContainer: {

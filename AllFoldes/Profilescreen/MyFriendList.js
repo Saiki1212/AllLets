@@ -39,7 +39,7 @@ const FollowList = () => {
   const fetchUserdetails = async() => {
     try {
       setLoad2(true)
-      const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/profile/${userId}`)
+      const response = await axios.get(`https://letslearn-production.up.railway.app/profile/${userId}`)
       const {user} = response.data
       setUser(user)
       setLoad2(false)
@@ -68,8 +68,9 @@ const FollowList = () => {
     const fetchAllUsers = async () => {
         try {
             setLoad2(true)
-            const response = await axios.get('https://phoenix-optimum-hawk.ngrok-free.app/all-users');
+            const response = await axios.get('https://letslearn-production.up.railway.app/all-users');
             const { users } = response.data;
+            // setAllUsers(users)
             setLoad2(false)
             if (users && users.length > 0) {
                 setAllUsers(users.reverse());
@@ -88,7 +89,7 @@ const FollowList = () => {
       setLoad1(true)
       const id = items._id
       try {
-        const api = await axios.post('https://phoenix-optimum-hawk.ngrok-free.app/UnfollowBothUsers', {userId, id})
+        const api = await axios.post('https://letslearn-production.up.railway.app/UnfollowBothUsers', {userId, id})
         fetchAllUsers()
         fetchUserdetails()
         setLoad1(false)
@@ -118,22 +119,7 @@ const FollowList = () => {
         <StatusBar backgroundColor="#f0f0f0" barStyle="dark-content"/>
     {load1 && <MakingFriendLoader/>}
     {load2 && <JustLoading/>}
-      <View style={styles.container1Header}>
-          <View style={styles.container2Header}>
-              <TextInput
-                  placeholder='search friends'
-                  placeholderTextColor={'#7a7979'}
-                  autoFocus={false}
-                  autoCapitalize='none'
-                  value={search}
-                  // onChangeText={(text) => filteredUsers(text)}
-                  style={styles.inputTextHeader}
-              />
-              <TouchableOpacity style={styles.imageViewHeader} onPress={() => changeScreen.navigate('Profile')}>
-                  <Image source={{uri: user?.profilePic}} style={styles.imageStyleHeader}/>
-              </TouchableOpacity>
-          </View>
-      </View>
+      <View style={{marginTop:statusBarHeight+10}} />
       {/* <ScrollView>
         {filteredUsers?.map((item, index) => (
           <Text key={index}>{item?.name}</Text>
@@ -153,7 +139,7 @@ const FollowList = () => {
         const matched = Array.isArray(user.friendsNames) && user.friendsNames.length > 0
           ? user.friendsNames.find((f) => f.username === items.username)
           : null;
-          {/* console.log('user?.friendsNames : :: ', user.friendsNames) */}
+          {/* console.log('user?.friendsNames : :: ', user) */}
         return(
         <Pressable key={items._id} onPress={() => changeScreen.navigate('Detail', {items : items})}>
         {items._id != userId && (
@@ -210,14 +196,6 @@ const FollowList = () => {
 }
 
 const styles = StyleSheet.create({
-  container1Header: {
-      marginHorizontal: width*0.03,
-      height:height*0.06,
-      backgroundColor:'#d9d9d9',
-      borderRadius:10,
-      marginTop:statusBarHeight+10,
-      marginBottom:10
-  },
   container2Header: {
       flexDirection:'row'
   },

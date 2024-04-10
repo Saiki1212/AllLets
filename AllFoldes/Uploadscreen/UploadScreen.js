@@ -9,7 +9,6 @@ import SyntaxHighlighter from 'react-native-syntax-highlighter';
 import { docco } from 'react-syntax-highlighter/styles/hljs';
 import PostUpload from '../Loader/UploadPostLoading'
 import { Feather, FontAwesome } from '@expo/vector-icons';
-import Toast from 'react-native-toast-message';
 
 const {width} = Dimensions.get('window')
 const {height} = Dimensions.get('screen')
@@ -72,9 +71,16 @@ const UploadScreen = () => {
     },[userId])
   )
 
+  useFocusEffect(
+    useCallback(() => {
+      setPressUpload(false)
+      setOpenr('')
+    },[])
+  )
+
 const fetchAllUserLikes = async () => {
   try {
-    const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/LikeForAUser/${username}`);
+    const response = await axios.get(`https://letslearn-production.up.railway.app/LikeForAUser/${username}`);
     setLikes(response.data)
   } catch (error) {
     console.log('Error while fetching likes:', error);
@@ -85,7 +91,7 @@ const fetchAllUserLikes = async () => {
 
     const fetchAllUsers = async () => {
       try {
-        const response = await axios.get('https://phoenix-optimum-hawk.ngrok-free.app/all-users');
+        const response = await axios.get('https://letslearn-production.up.railway.app/all-users');
         const { users } = response.data;
 
         if (users && users.length > 0) {
@@ -100,7 +106,7 @@ const fetchAllUserLikes = async () => {
 
     const fetchUserdetails = async() => {
       try {
-        const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/profile/${userId}`)
+        const response = await axios.get(`https://letslearn-production.up.railway.app/profile/${userId}`)
         const {user} = response.data
         setUser(user)
         setUsername(user.username)
@@ -111,7 +117,7 @@ const fetchAllUserLikes = async () => {
 
     const friendsPosts = async() => {
       try {
-        const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/friends/${username}`)
+        const response = await axios.get(`https://letslearn-production.up.railway.app/friends/${username}`)
         if (response.status === 200 ) {
           setAllFriends(response.data.allFriends.reverse());
         } else {
@@ -124,7 +130,7 @@ const fetchAllUserLikes = async () => {
 
     const handleSubmit = async() => {
       if (!post) {
-        return Alert.alert('Please Enter the query !')
+        return Alert.alert('Please Enter the post details !')
       }
       Alert.alert(
         'Upload query',
@@ -139,7 +145,7 @@ const fetchAllUserLikes = async () => {
                 onPress: async() => {
                     try {
                       setPostLoading(true)
-                      await axios.post('https://phoenix-optimum-hawk.ngrok-free.app/UpdatingPosts',{username, post})
+                      await axios.post('https://letslearn-production.up.railway.app/UpdatingPosts',{username, post})
                         .then((response) => {
                           if(response.status === 200) {
                             setPostLoading(false)
@@ -171,7 +177,7 @@ const fetchAllUserLikes = async () => {
       }
       Alert.alert(
         'Submit response',
-        'Click ok to respond the response',
+        'Click ok to respond to post',
         [
             {
                 text: 'Cancel',
@@ -182,7 +188,7 @@ const fetchAllUserLikes = async () => {
                 onPress: async() => {
                     try {
                       setPostLoading(true)
-                      await axios.post('https://phoenix-optimum-hawk.ngrok-free.app/UpdatingReply',{username, reply, postid})
+                      await axios.post('https://letslearn-production.up.railway.app/UpdatingReply',{username, reply, postid})
                         .then((response) => {
                           if(response.status === 200) {
                             setPostLoading(false)
@@ -207,7 +213,7 @@ const fetchAllUserLikes = async () => {
       try {
         setReplies('')
         friendsPosts();
-        const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/fetchingRepliesOfAPost/${postid}`)
+        const response = await axios.get(`https://letslearn-production.up.railway.app/fetchingRepliesOfAPost/${postid}`)
         setReplies(response.data.replies.reverse())
       } catch (error) {
         console.log('Error while fetch All Replies Of a Post , ', error)
@@ -220,7 +226,7 @@ const fetchAllUserLikes = async () => {
     const username = user.username;
     try {
       setLikeLoad(true)
-      const response = await axios.post('https://phoenix-optimum-hawk.ngrok-free.app/likedPost', {username, postid})
+      const response = await axios.post('https://letslearn-production.up.railway.app/likedPost', {username, postid})
       fetchAllUserLikes();
       setLikeLoad(false)
     } catch (error) {
@@ -237,7 +243,7 @@ const fetchAllUserLikes = async () => {
       <ScrollView>
       <View style={styles.upperViewStyle}>
         <Text style={styles.mainHeader}>Do you have a query !</Text>
-        <Text style={styles.mainHeaderCaption}>Post here to take help from your friends an experties. Soon we are going to add reply option.</Text>
+        <Text style={styles.mainHeaderCaption}>Post here to take help from your friends and experties.</Text>
           <Pressable style={styles.uploadPostView} onPress={() => {setPressUpload(!pressUpload); setOpenr(''); setReply('')}}>
             <Text style={styles.uploadPostText}>Upload post</Text>
           </Pressable>
@@ -263,7 +269,7 @@ const fetchAllUserLikes = async () => {
           ) : null}
         </View>
         
-        <Text style={styles.friendsQueryHeaderText}>Friends Queries !!!</Text>
+        <Text style={styles.friendsQueryHeaderText}>Friends Posts !!!</Text>
         <View style={{borderWidth:0.3, borderColor:'#919191', marginHorizontal:width*0.05}}/>
         <View>
           {allFriends && allFriends?.map((item, index) => {
@@ -314,7 +320,7 @@ const fetchAllUserLikes = async () => {
                       </View>
                       
                     ) : (
-                      <Pressable onPress={() => {setOpenr(item._id); setReply(''); fetchAllRepliesOfaPost(item._id)}} style={styles.respondBtn}>
+                      <Pressable onPress={() => {setOpenr(item._id); setReply('');setPressUpload(false); fetchAllRepliesOfaPost(item._id)}} style={styles.respondBtn}>
                         <Text style={styles.respondText}>respond</Text>
                       </Pressable>
                     )}

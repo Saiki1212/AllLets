@@ -54,7 +54,7 @@ const userSchema = new mongoose.Schema({
     verificationToken : String,
     profilePic: {
         type: String,
-        default: 'https://w0.peakpx.com/wallpaper/208/752/HD-wallpaper-whatsapp-dp-cartoon.jpg'
+        default: 'https://img.freepik.com/free-photo/3d-rendering-kid-playing-digital-game_23-2150898496.jpg?size=626&ext=jpg&ga=GA1.1.1249351520.1712655788&semt=ais'
     },
     generalDetails: 
     {

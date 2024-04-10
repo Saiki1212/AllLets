@@ -71,7 +71,7 @@ const DetailScreen = ({}) => {
 
     const fetchUserdetails = async () => {
       try {
-        const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/profile/${userId1}`);
+        const response = await axios.get(`https://letslearn-production.up.railway.app/profile/${userId1}`);
         const { user } = response.data;
         setUser(user);
         setUsername(user.username);
@@ -86,7 +86,7 @@ const DetailScreen = ({}) => {
       console.log(username,' : : ', postid)
       try {
         setLikeLoad(true)
-        const response = await axios.post('https://phoenix-optimum-hawk.ngrok-free.app/likedPost', {username, postid})
+        const response = await axios.post('https://letslearn-production.up.railway.app/likedPost', {username, postid})
         fetchAllUserLikes();
         fetchUserPosts();
         setLikeLoad(false)
@@ -99,7 +99,7 @@ const DetailScreen = ({}) => {
     const fetchAllUserLikes = async () => {
       try {
         // console.log('username: ', username);
-        const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/LikeForAUser/${username}`);
+        const response = await axios.get(`https://letslearn-production.up.railway.app/LikeForAUser/${username}`);
         // console.log('response .data : ', response.data)
         setLikes(response.data)
         // console.log('likes', likes)
@@ -111,7 +111,7 @@ const DetailScreen = ({}) => {
 
     const fetchUserPosts = async() => {
       try {
-        const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/UserPosts/${userId}`)
+        const response = await axios.get(`https://letslearn-production.up.railway.app/UserPosts/${userId}`)
         setMyPosts(response.data.myposts.reverse())
       } catch (error) {
         console.log("error in My Posts  59 : ", error)
@@ -169,11 +169,11 @@ const DetailScreen = ({}) => {
       <View>
         {route.params.items?.posts === 0 ? (
           <View>
-            <Text style={styles.mainHeader}>No Queries/Posts</Text>
+            <Text style={styles.mainHeader}>No Posts</Text>
           </View>
         ) : (
           <>
-            <Text style={styles.mainHeader}>Queries/Posts</Text>
+            <Text style={styles.mainHeader}>Posts</Text>
             {myposts.length === 0 ? null : (
                 myposts?.map((item, index) => {
                   let like;

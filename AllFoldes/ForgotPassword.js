@@ -50,7 +50,7 @@ const ForgotPassword = () => {
         setLoad(true)
         try {
             const response = await axios.get(
-              `https://phoenix-optimum-hawk.ngrok-free.app/profileByEmail?email=${email}`
+              `https://letslearn-production.up.railway.app/profileByEmail?email=${email}`
             );
             const user = response.data.user;
             setUser(user)
@@ -69,7 +69,7 @@ const ForgotPassword = () => {
 
         try {
             const response = await axios.post(
-              "https://phoenix-optimum-hawk.ngrok-free.app/SendOtp",
+              "https://letslearn-production.up.railway.app/SendOtp",
               {email}
             );
             setLoad(false);
@@ -91,7 +91,7 @@ const ForgotPassword = () => {
                 return Alert.alert("Otp is of 4 digits.");
             }
             const response = await axios.post(
-              "https://phoenix-optimum-hawk.ngrok-free.app/VerifyOtp",
+              "https://letslearn-production.up.railway.app/VerifyOtp",
               {email, otp}
             );
             setOpt('');
@@ -107,7 +107,7 @@ const ForgotPassword = () => {
               pass: pass,
             };
             const response = await axios.post(
-              "https://phoenix-optimum-hawk.ngrok-free.app/ResetPassword",
+              "https://letslearn-production.up.railway.app/ResetPassword",
               user
             );
             setLoad(false);

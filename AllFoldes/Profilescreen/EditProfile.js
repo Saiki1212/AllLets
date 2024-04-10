@@ -64,7 +64,7 @@ const EditProfile = () => {
     const fetchUserdetails = async() => {
       try {
         setLoad(true)
-        const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/profile/${userId}`)
+        const response = await axios.get(`https://letslearn-production.up.railway.app/profile/${userId}`)
         const {user} = response.data
         setLoad(false)
         setUser(user)
@@ -106,7 +106,7 @@ const EditProfile = () => {
             return Alert.alert('Please re-check the mobile number')
         }
         setLoading(true)
-        axios.post('https://phoenix-optimum-hawk.ngrok-free.app/AddingGeneralDetaiils', {userId, profession, image, name, gender, collegeName, year, favSubject, mobileNumber})
+        axios.post('https://letslearn-production.up.railway.app/AddingGeneralDetaiils', {userId, profession, image, name, gender, collegeName, year, favSubject, mobileNumber})
             .then((response) => {
                 Alert.alert('Details saved successfully')
                 handleReset;
@@ -155,7 +155,7 @@ const EditProfile = () => {
                 onPress: async() => {
                     try {
                         setLoading(true)
-                        await axios.delete(`https://phoenix-optimum-hawk.ngrok-free.app/DeleteAccount/${userId}`)
+                        await axios.delete(`https://letslearn-production.up.railway.app/DeleteAccount/${userId}`)
                         await clearAuthToken();
                         setLoading(false)
                     } catch (error) {

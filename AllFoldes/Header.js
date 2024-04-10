@@ -30,7 +30,7 @@ const Header = () => {
   useEffect(() => {
     const fetchUserdetails = async() => {
       try {
-        const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/profile/${userId}`)
+        const response = await axios.get(`https://letslearn-production.up.railway.app/profile/${userId}`)
         const {user} = response.data
         setUser(user)
       } catch (error) {

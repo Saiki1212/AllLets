@@ -32,7 +32,7 @@ const EditPost = ({}) => {
             const postid = post1._id;
             const post = finalText;
             setLoad(true)
-            const response = await axios.post('https://phoenix-optimum-hawk.ngrok-free.app/EditPost', {postid, post})
+            const response = await axios.post('https://letslearn-production.up.railway.app/EditPost', {postid, post})
             setLoad(false)
             Alert.alert('Post changed');
             setTimeout(() => {

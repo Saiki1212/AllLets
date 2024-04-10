@@ -61,14 +61,19 @@ const ProfileScreen = () => {
     },[username])
   )
 
-  
-
+  useFocusEffect(
+    useCallback(() => {
+      setPopVisible(false)
+      setVisible(false)
+      setOpenr('')
+    },[])
+  )
     const handleLikePost = async( postid) => {
       // const username = user.username;
       // console.log(username,' : : ', postid)
       try {
         setLikeLoad(true)
-        const response = await axios.post('https://phoenix-optimum-hawk.ngrok-free.app/likedPost', {username, postid})
+        const response = await axios.post('https://letslearn-production.up.railway.app/likedPost', {username, postid})
         setLikeLoad(false)
         fetchAllUserLikes();
         fetchUserPosts();
@@ -81,7 +86,7 @@ const ProfileScreen = () => {
     const fetchAllUserLikes = async () => {
       try {
         // console.log('username: ', username);
-        const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/LikeForAUser/${username}`);
+        const response = await axios.get(`https://letslearn-production.up.railway.app/LikeForAUser/${username}`);
         // console.log('response .data : ', response.data)
         setLikes(response.data)
         // console.log('likes', likes)
@@ -94,7 +99,7 @@ const ProfileScreen = () => {
     const fetchAllRepliesOfaPost = async(postid) => {
       try {
         setReplies('')
-        const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/fetchingRepliesOfAPost/${postid}`)
+        const response = await axios.get(`https://letslearn-production.up.railway.app/fetchingRepliesOfAPost/${postid}`)
         setReplies(response.data.replies.reverse())
         fetchUserPosts()
       } catch (error) {
@@ -107,7 +112,7 @@ const ProfileScreen = () => {
     const fetchUserdetails = async() => {
       try {
         setLoad(true)
-        const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/profile/${userId}`)
+        const response = await axios.get(`https://letslearn-production.up.railway.app/profile/${userId}`)
         const {user} = response.data
         setLoad(false)
         setUser(user)
@@ -120,7 +125,7 @@ const ProfileScreen = () => {
 
     const fetchUserPosts = async() => {
       try {
-        const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/UserPosts/${userId}`)
+        const response = await axios.get(`https://letslearn-production.up.railway.app/UserPosts/${userId}`)
         setMyPosts(response.data.myposts.reverse())
         // console.log('MY POSTS by response :::::: ', response.data.myposts)
         // console.log('MY POSTS :::::: ', myposts)
@@ -145,7 +150,7 @@ const ProfileScreen = () => {
                     try {
                       const postid = postinfo._id;
                       // console.log('Userid and postid : ' , userId,' : : :', postid);
-                      await axios.post('https://phoenix-optimum-hawk.ngrok-free.app/RemovingPost',{postid, userId})
+                      await axios.post('https://letslearn-production.up.railway.app/RemovingPost',{postid, userId})
                         .then((response) => {
                           if(response.status === 200) {
                             fetchUserdetails()
@@ -272,11 +277,11 @@ const ProfileScreen = () => {
       <View>
         {user.posts === 0 ? (
           <View>
-            <Text style={styles.mainHeader}>No Queries/Posts</Text>
+            <Text style={styles.mainHeader}>No Posts</Text>
           </View>
         ) : (
           <Pressable onPress={() => {setOpenr(''); setPopVisible(false)}} >
-            <Text style={styles.mainHeader}>Queries/Posts</Text>
+            <Text style={styles.mainHeader}>Posts</Text>
               {myposts.length === 0 ? null : (
                 myposts?.map((item, index) => {
                   let like;
@@ -288,7 +293,7 @@ const ProfileScreen = () => {
                   return (
                 <View key={index} style={styles.postTextView} >
                 {/* {console.log('user?.MyPost :: ',user?.MyPost)} */}
-                  <View style={{flexDirection: 'row', justifyContent: 'space-between', marginRight:-7}}>
+                  <View style={{ marginRight:-7}}>
                     <SyntaxHighlighter language={'javascript'} value={item?.post}
                     style={docco}
                     fontSize={RFValue(10)}
@@ -301,7 +306,7 @@ const ProfileScreen = () => {
                       }} >
                     {item?.post}
                     </SyntaxHighlighter>
-                    <TouchableOpacity onPress={() => {fetchAllUserLikes();fetchAllRepliesOfaPost() ; setPostInfo(item); setOpenr(''); setPopVisible(false); setVisible(true)}}>
+                    <TouchableOpacity style={styles.dotsStyle} onPress={() => {fetchAllUserLikes();fetchAllRepliesOfaPost() ; setPostInfo(item); setOpenr(''); setPopVisible(false); setVisible(true)}}>
                       <MaterialCommunityIcons name="dots-vertical" size={20} color="black" />
                     </TouchableOpacity>
                   </View>
@@ -369,8 +374,8 @@ const ProfileScreen = () => {
                 <View style={styles.popup2}>
                     <View style={styles.bottomModal}>
                     <View style={{borderWidth:2, borderColor:'#919191',marginHorizontal:width*0.42, borderRadius:4, flexDirection:'row'}}/>
-                    <Pressable style={{marginLeft:'auto', marginTop: -10}} onPress={() => setVisible(false)}>
-                      <Entypo name="cross" size={22} color="#919191" />
+                    <Pressable style={{marginLeft:'auto', marginRight:5, marginTop: -10}} onPress={() => setVisible(false)}>
+                      <Entypo name="cross" size={30} color="#919191" />
                     </Pressable>
                   {postOptions.map((i,idx) => (
                     <Pressable key={idx} 
@@ -469,11 +474,16 @@ const styles = StyleSheet.create({
     backgroundColor:'#d4d4d4',
     borderRadius:8,
   },
+  dotsStyle: {
+    position: 'absolute',
+    marginLeft: width-55,
+    top: 3
+  },
   bottomView: {
     flexDirection:'row',
     justifyContent:'space-between',
     alignItems:'center',
-    marginVertical:height*0.005,
+    // marginVertical:height*0.005,
   },
   delBtn: {
     backgroundColor:'#f0f0f0',

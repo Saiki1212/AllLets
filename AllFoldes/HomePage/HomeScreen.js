@@ -22,7 +22,7 @@ const HomeScreen = () => {
   )
   const fetchCourses = async () => {
       try {
-          const response = await axios.get('https://phoenix-optimum-hawk.ngrok-free.app/GetCourseCount');
+          const response = await axios.get('https://letslearn-production.up.railway.app/GetCourseCount');
           const { AllCourse } = response.data;
           if (AllCourse && AllCourse.length > 0) {
             setAllCourse(AllCourse);
@@ -76,7 +76,7 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom:100
+    paddingBottom:10
   },
   programming: {
     // color:'#fff', 

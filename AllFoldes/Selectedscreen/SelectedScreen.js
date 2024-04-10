@@ -16,7 +16,7 @@ import { MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
 const {width} = Dimensions.get('window')
 const {height} = Dimensions.get('screen')
-
+const statusBarHeight = Platform.OS === 'ios' ? 50 : 40;
 
 const SelectedScreen = () => {
   const [myCourses, setMyCourses] = useState([])
@@ -50,10 +50,15 @@ const SelectedScreen = () => {
       }
     },[userId])
   )
+  useFocusEffect(
+    useCallback(() => {
+      setPopup(false)
+    },[])
+  )
 
   const getCourse = async () => {
     try {
-      const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/AddedCourse/${userId}`)
+      const response = await axios.get(`https://letslearn-production.up.railway.app/AddedCourse/${userId}`)
       if (response.status === 200 ) {
         setMyCourses(response.data.courses.reverse());
       } else {
@@ -69,7 +74,7 @@ const SelectedScreen = () => {
     setDelc(true)
     try {
       // console.log('Removing course:', name, 'for user:', userId);
-      await axios.post('https://phoenix-optimum-hawk.ngrok-free.app/RemoveCourse', {name, userId})
+      await axios.post('https://letslearn-production.up.railway.app/RemoveCourse', {name, userId})
         .then((response) => {
           // console.log('Response from RemoveCourse API:    ', response.data);
           getCourse();
@@ -98,21 +103,22 @@ const SelectedScreen = () => {
   }
 
   const handleRemoveAll = async() => {
-    setPopup(false);
+    
     console.log("remove all")
     setDelc(true)
     try {
       // console.log('Removing course:', name, 'for user:', userId);
-      await axios.post('https://phoenix-optimum-hawk.ngrok-free.app/RemoveAllCourse', {userId})
+      await axios.post('https://letslearn-production.up.railway.app/RemoveAllCourse', {userId})
         .then((response) => {
           getCourse();
-          console.log('All Course removed successfully.');
+          // console.log('All Course removed successfully.');
           setDelc(false)
         })
     } catch (error) {
       setDelc(false)
       console.log('Error line 115 : ', error)
     }
+    setPopup(false);
   }
   
 
@@ -127,17 +133,17 @@ const SelectedScreen = () => {
       { myCourses?.length ? (
         <>
           <StatusBar style="dark" backgroundColor="#f0f0f0"/>
-          <Header/>
+          {/* <Header/> */}
           <View style={styles.headerView}>
             <Text style={styles.programming}>Selected Courses</Text>
             {popup ? (
               <View>
-                <TouchableOpacity onPress={() => {setPopup(false)}}>
+                <TouchableOpacity onPress={() =>{setPopup(false)}}>
                   <MaterialCommunityIcons name="menu-up-outline" size={24} color="black" />
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.popupmain} onPress={() => handleRemoveAll()}>
                   <MaterialIcons name="highlight-remove" size={24} color="#ea546c" />
-                  <Text style={styles.removePopText}>Remove all courses</Text>
+                  <Text style={styles.removePopText}  >Remove all courses</Text>
                 </TouchableOpacity>
               </View>
             ) : (
@@ -298,6 +304,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems:'center',
     paddingRight:width*0.03,
+    marginTop: statusBarHeight
   },
   popupmain: {
     flexDirection:'row',

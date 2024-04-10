@@ -404,7 +404,7 @@ Here are a few advantages of a linked list that is listed below, it will help yo
     },
     {
         name: 'Java',
-        courseImage: require('./assets/dsa.jpg'),
+        courseImage: require('./assets/java.jpg'),
         courseVideo: require('./assets/Videos/DSABigONotaion.mp4'),
         courseInfo: 'Java is a programming language and computing platform first released by Sun Microsystems in 1995. It has evolved from humble beginnings to power a large share of today’s digital world, by providing the reliable platform upon which many services and applications are built. New, innovative products and digital services designed for the future continue to rely on Java, as well.',
         courseCompleteInfo: `Java is a widely-used programming language for coding web applications. It has been a popular choice among developers for over two decades, with millions of Java applications in use today. Java is a multi-platform, object-oriented, and network-centric language that can be used as a platform in itself. It is a fast, secure, reliable programming language for coding everything from mobile apps and enterprise software to big data applications and server-side technologies.
@@ -450,7 +450,7 @@ Users can download untrusted Java code over a network and run it in a secure env
         courseFunctions: [
             {
                 name: 'Variables and data types',
-                courseImage: require('./assets/Array.png'),
+                courseImage: require('./assets/java.jpg'),
                 code: Variables,
                 courseInfo: 'Variables are containers for storing data values.',
                 courseCompleteInfo: `
@@ -468,7 +468,7 @@ boolean - stores values with two states: true or false`,
             },    
             {
                 name: 'If Else',
-                courseImage: require('./assets/Array.png'),
+                courseImage: require('./assets/java.jpg'),
                 code: Ifelse,
                 courseInfo: 'You already know that Java supports the usual logical conditions from mathematics:',
                 courseCompleteInfo: `
@@ -494,7 +494,7 @@ Use switch to specify many alternative blocks of code to be executed.
             },    
             {
                 name: 'Switch statement',
-                courseImage: require('./assets/Array.png'),
+                courseImage: require('./assets/java.jpg'),
                 code: SwitchStatement,
                 courseInfo: 'Instead of writing many if..else statements, you can use the switch statement.',
                 courseCompleteInfo: `The switch statement selects one of many code blocks to be executed.
@@ -511,14 +511,14 @@ The break and default keywords are optional, and will be described later in this
             },    
             {
                 name: 'While Loop',
-                courseImage: require('./assets/Array.png'),
+                courseImage: require('./assets/java.jpg'),
                 code: WhileLoop,
                 courseInfo: 'Loops can execute a block of code as long as a specified condition is reached.',
                 courseCompleteInfo: `Loops are handy because they save time, reduce errors, and they make code more readable.`,
             },    
             {
                 name: 'For Loop',
-                courseImage: require('./assets/Array.png'),
+                courseImage: require('./assets/java.jpg'),
                 code: ForLoop,
                 courseInfo: 'When you know exactly how many times you want to loop through a block of code, use the for loop instead of a while loop:',
                 courseCompleteInfo: `
@@ -535,6 +535,24 @@ Statement 3 is executed (every time) after the code block has been executed.
 The example below will print the numbers 0 to 4:`,
             },    
         ],
+    },
+    {
+        name: 'C++',
+        courseImage: require('./assets/CPP.jpg'),
+        courseInfo: 'C++ is an object-oriented programming language which gives a clear structure to programs and allows code to be reused, lowering development costs. C++ is portable and can be used to develop applications that can be adapted to multiple platforms.',
+        courseCompleteInfo: `Coming Soon...`,
+    },
+    {
+        name: 'C Language',
+        courseImage: require('./assets/C1.jpeg'),
+        courseInfo: 'C is a general-purpose programming language created by Dennis Ritchie at the Bell Laboratories in 1972. It is a very popular language, despite being old. The main reason for its popularity is because it is a fundamental language in the field of computer science.',
+        courseCompleteInfo: `Coming Soon...`,
+    },
+    {
+        name: 'Python',
+        courseImage: require('./assets/python.jpg'),
+        courseInfo: 'Python is a high-level, general-purpose programming language. Its design philosophy emphasizes code readability with the use of significant indentation.',
+        courseCompleteInfo: `Python is an interpreted, interactive, object-oriented programming language. It incorporates modules, exceptions, dynamic typing, very high level dynamic data types, and classes. It supports multiple programming paradigms beyond object-oriented programming, such as procedural and functional programming. Python combines remarkable power with very clear syntax. It has interfaces to many system calls and libraries, as well as to various window systems, and is extensible in C or C++. It is also usable as an extension language for applications that need a programmable interface. Finally, Python is portable: it runs on many Unix variants including Linux and macOS, and on Windows.`,
     },
     
 ];

@@ -43,7 +43,7 @@ const OverViewPage = ({}) => {
     }
     const fetchUserdetails = async() => {
       try {
-        const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/profile/${userId}`)
+        const response = await axios.get(`https://letslearn-production.up.railway.app/profile/${userId}`)
         const {user} = response.data
         setUser(user)
         const enro  = user?.selectedCourses?.map(course => course.name).includes(route.params.course.name)
@@ -80,7 +80,7 @@ const OverViewPage = ({}) => {
               CourseSelected: cName
           }
 
-          const response = await axios.post('https://phoenix-optimum-hawk.ngrok-free.app/AddCourseToList',details)
+          const response = await axios.post('https://letslearn-production.up.railway.app/AddCourseToList',details)
           setCName('')
           if(response.status == 200) {
             setLoading(false)
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
       height:height*0.3,
       width:'100%',
       marginHorizontal:0,
-      resizeMode:'cover',
+      resizeMode: 'cover',
       borderRadius:12,
     },
     imageViewStyle: {

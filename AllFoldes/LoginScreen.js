@@ -2,10 +2,8 @@ import {
   Alert,
   Dimensions,
   Image,
-  ImageBackground,
   Pressable,
   SafeAreaView,
-  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -33,19 +31,21 @@ const LoginScreen = () => {
   const [showpass, setShowpass] = useState(true);
   const logo = require('../assets/myLogo.jpg')
 
-
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
         const token = await AsyncStorage.getItem("authToken");
         if (token) {
-          setLoading(false);
-          ChangeScreen.replace("BottomTabs");
-          // console.log("Token", token)
+          try {
+              const response = await axios.get('https://letslearn-production.up.railway.app/');
+              setLoading(false);
+              ChangeScreen.replace("BottomTabs");
+          } catch (error) {
+              console.log('Error in fetchget :', error);
+          }
         }
-        setLoading(false);
+        else setLoading(false);
       } catch (error) {
-        setLoading(false);
         console.log("Error checking loginStatus : ", error);
       }
     };
@@ -58,7 +58,7 @@ const LoginScreen = () => {
 
     setUsername(username2);
     setPassword(pass2)
-  },[username,password])
+  }, [username, password])
 
   const handleLogin = async () => {
     if (!username) {
@@ -71,7 +71,7 @@ const LoginScreen = () => {
 
     try {
       const response = await axios.get(
-        `https://phoenix-optimum-hawk.ngrok-free.app/profileByUsername?username=${username}`
+        `https://letslearn-production.up.railway.app/profileByUsername?username=${username}`
       );
       const user = response.data.user;
       if (user.verify === false) {
@@ -85,15 +85,13 @@ const LoginScreen = () => {
       return console.log("Error bro : ", error);
     }
 
-
-
     try {
       const user = {
         username: username,
         password: password,
       };
       const response = await axios.post(
-        "https://phoenix-optimum-hawk.ngrok-free.app/login",
+        "https://letslearn-production.up.railway.app/login",
         user
       );
       const token = response.data.token;
@@ -114,11 +112,11 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-        <StatusBar backgroundColor="#fff" barStyle="dark-content"/>
+      <StatusBar backgroundColor="#fff" barStyle="dark-content" />
       {loading ? (
-        <LoginSignUpLoader/>
+        <LoginSignUpLoader />
       ) : (
-        <View style={{ flex: 1, backgroundColor:'#fff'}} >
+        <View style={{ flex: 1, backgroundColor: '#fff' }} >
 
           <View style={styles.headerView}>
             <Text style={styles.headerStyle}>WELCOME TO LET'S LEARN</Text>
@@ -154,19 +152,19 @@ const LoginScreen = () => {
                   style={styles.textInput}
                 />
                 {showpass ? (
-                  <TouchableOpacity onPress={() => {setShowpass(!showpass)}} style={styles.showpassStyle}>
+                  <TouchableOpacity onPress={() => { setShowpass(!showpass) }} style={styles.showpassStyle}>
                     <Ionicons name="ios-eye-off-outline" size={24} color="gray" />
                   </TouchableOpacity>
                 ) : (
-                  <TouchableOpacity onPress={() => {setShowpass(!showpass)}} style={styles.showpassStyle}>
+                  <TouchableOpacity onPress={() => { setShowpass(!showpass) }} style={styles.showpassStyle}>
                     <Ionicons name="ios-eye-outline" size={24} color="gray" />
                   </TouchableOpacity>
                 )}
               </View>
             </View>
 
-            <Pressable style={styles.forgotPasswordStyle} onPress={()=> ChangeScreen.navigate('Forgot')}>
-                <Text style={styles.forgotPasswordTextStyle}>Forgot password ?</Text>
+            <Pressable style={styles.forgotPasswordStyle} onPress={() => ChangeScreen.navigate('Forgot')}>
+              <Text style={styles.forgotPasswordTextStyle}>Forgot password ?</Text>
             </Pressable>
 
             <Pressable style={styles.loginPressable} onPress={handleLogin}>
@@ -220,14 +218,14 @@ const styles = StyleSheet.create({
     marginTop: height * 0.03,
     borderWidth: width * 0.001,
     borderColor: "#c9c9c9",
-    shadowColor:'#000',
+    shadowColor: '#000',
     shadowOffset: {
-        height:5,
-        width:5
+      height: 5,
+      width: 5
     },
-    shadowOpacity:0.2,
+    shadowOpacity: 0.2,
     shadowRadius: 5,
-    elevation:6
+    elevation: 6
   },
   textInputViewP: {
     flexDirection: 'row',
@@ -237,19 +235,19 @@ const styles = StyleSheet.create({
     marginTop: height * 0.03,
     borderWidth: width * 0.001,
     borderColor: "#c9c9c9",
-    shadowColor:'#000',
+    shadowColor: '#000',
     shadowOffset: {
-        height:5,
-        width:5
+      height: 5,
+      width: 5
     },
-    shadowOpacity:0.2,
+    shadowOpacity: 0.2,
     shadowRadius: 5,
-    elevation:6,
-    alignItems:'center',
+    elevation: 6,
+    alignItems: 'center',
   },
   showpassStyle: {
-    position:'absolute',
-    marginLeft:width-width * 0.18-width * 0.08,
+    position: 'absolute',
+    marginLeft: width - width * 0.18 - width * 0.08,
   },
   textInput: {
     width: width - 2 * width * 0.09,
@@ -293,9 +291,9 @@ const styles = StyleSheet.create({
     height: width * 0.15,
     borderRadius: width * 0.2,
     marginTop: height * 0.03,
-    borderWidth:2,
-    borderColor:'#e8eeff',
-    resizeMode:'contain'
+    borderWidth: 2,
+    borderColor: '#e8eeff',
+    resizeMode: 'contain'
   },
   container: {
     justifyContent: "center",
@@ -304,14 +302,14 @@ const styles = StyleSheet.create({
     paddingVertical: height * 0.001,
   },
   forgotPasswordStyle: {
-    marginLeft:'auto',
-    marginRight:width * 0.09,
-    marginTop: height*0.015
+    marginLeft: 'auto',
+    marginRight: width * 0.09,
+    marginTop: height * 0.015
   },
   forgotPasswordTextStyle: {
-    color:'#0095f6',
+    color: '#0095f6',
     fontSize: RFValue(11),
-    fontWeight:'600'
+    fontWeight: '600'
   },
 });
 

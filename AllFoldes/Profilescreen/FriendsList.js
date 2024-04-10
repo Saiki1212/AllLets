@@ -40,7 +40,7 @@ const FollowList = () => {
     const fetchUserdetails = async() => {
       setLoad2(true)
       try {
-        const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/profile/${userId}`)
+        const response = await axios.get(`https://letslearn-production.up.railway.app/profile/${userId}`)
         const {user} = response.data
         setUser(user)
         setLoad2(false)
@@ -60,7 +60,7 @@ const FollowList = () => {
     const fetchAllUsers = async () => {
         try {
           setLoad2(true)
-            const response = await axios.get('https://phoenix-optimum-hawk.ngrok-free.app/all-users');
+            const response = await axios.get('https://letslearn-production.up.railway.app/all-users');
             const { users } = response.data;
             setLoad2(false)
             if (users && users.length > 0) {
@@ -79,7 +79,7 @@ const FollowList = () => {
       setLoad1(true)
       const id = items._id
       try {
-        const response = await axios.post('https://phoenix-optimum-hawk.ngrok-free.app/AddFriendToBothUsers', {userId, id})
+        const response = await axios.post('https://letslearn-production.up.railway.app/AddFriendToBothUsers', {userId, id})
         fetchUserdetails()
         fetchAllUsers()
         setLoad1(false)

@@ -28,7 +28,7 @@ const RegisterScreen = () => {
     const logo = require('../assets/myLogo.jpg')
     const fetchAllUsers = async () => {
         try {
-            const response = await axios.get('https://phoenix-optimum-hawk.ngrok-free.app/all-users');
+            const response = await axios.get('https://letslearn-production.up.railway.app/all-users');
             const { users } = response.data;
 
             if (users && users.length > 0) {
@@ -111,7 +111,7 @@ const RegisterScreen = () => {
         console.group('User : : ; ', user)
 
                     // https://ec2a-2409-40d1-1d-6926-bd03-fd60-bb30-25eb.ngrok-free.app
-        axios.post('https://phoenix-optimum-hawk.ngrok-free.app/register', user).then((response) => {
+        axios.post('https://letslearn-production.up.railway.app/register', user).then((response) => {
                 existsemail = response.status;
                 console.log('response from register Screen ✅✅✅ : ', user)
                 Alert.alert(`Please verify the link sent to ${email}`)

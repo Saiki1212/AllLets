@@ -53,7 +53,7 @@ function BottomTabs() {
 
   const fetchUserdetails = async() => {
     try {
-      const response = await axios.get(`https://phoenix-optimum-hawk.ngrok-free.app/profile/${userId}`)
+      const response = await axios.get(`https://letslearn-production.up.railway.app/profile/${userId}`)
       const {user} = response.data
       setUser(user)
     } catch (error) {
@@ -158,6 +158,7 @@ const StackNavigator = () => {
               <Stack.Screen name='Detail' component={DetailScreen} options={{headerShown: false}}/>
               <Stack.Screen name='Into1' component={IntoTheCourse1} options={{headerShown: false}}/>
               <Stack.Screen name='Follow' component={FollowList} options={{headerShown: false}}/>
+              <Stack.Screen name='Developer' component={AboutDeveloper} options={{headerShown: false}}/>
           </Stack.Navigator>
       </NavigationContainer>
     )
