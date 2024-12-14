@@ -1,7 +1,7 @@
-import { Dimensions, Platform, StatusBar, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import BackBtn from '../BackBtn'
-import { RFValue } from 'react-native-responsive-fontsize'
+import { Dimensions, Platform, StatusBar, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import BackBtn from '../BackBtn';
+import { RFValue } from 'react-native-responsive-fontsize';
 import LottieView from 'lottie-react-native';
 
 const {width} = Dimensions.get('window')
